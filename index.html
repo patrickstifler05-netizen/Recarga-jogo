@@ -1,1 +1,153 @@
+<!-- Layout inspirado no Recarga Jogo (identidade própria) -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recarga Jogo Flex</title>
+  <style>
+    :root{
+      --bg:#0f1115;--card:#171a21;--muted:#9aa4b2;--primary:#00c2ff;--accent:#22c55e;--warn:#f59e0b;--text:#e5e7eb
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    header{border-bottom:1px solid #1f2430}
+    .top{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
+    .brand{font-weight:800;letter-spacing:.3px}
+    .pill{background:#0b1220;border:1px solid #1f2a44;border-radius:999px;padding:6px 10px;color:var(--muted);font-size:12px}
+    main{max-width:1100px;margin:24px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+    .card{background:var(--card);border:1px solid #1f2430;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .hero{padding:22px}
+    .hero h1{margin:0 0 6px 0;font-size:26px}
+    .hero p{margin:0;color:var(--muted)}
+    .product{padding:18px}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .game{display:flex;align-items:center;gap:10px}
+    .badge{background:#0b1220;border:1px solid #1f2430;border-radius:8px;padding:6px 8px;font-size:12px;color:var(--muted)}
+    .price{font-size:28px;font-weight:800;color:var(--accent)}
+    .btn{appearance:none;border:0;border-radius:12px;padding:14px 16px;font-weight:700;cursor:pointer}
+    .btn-primary{background:linear-gradient(135deg,#00c2ff,#22c55e);color:#001018}
+    .btn-ghost{background:#0b1220;border:1px solid #1f2430;color:var(--text)}
+    .stack{display:flex;flex-direction:column;gap:10px}
+    .divider{height:1px;background:#1f2430;margin:14px 0}
+    .note{font-size:12px;color:var(--muted)}
+    .aside{padding:18px}
+    .list{display:grid;gap:10px}
+    .list div{display:flex;justify-content:space-between;color:var(--muted)}
+    .pix{background:#0b1220;border:1px dashed #2a3556;border-radius:12px;padding:12px}
+    code{word-break:break-all;background:#0b1220;border:1px solid #1f2430;border-radius:8px;padding:8px;display:block}
+    /* Modal */
+    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center}
+    .modal .box{width:min(520px,92%);background:var(--card);border:1px solid #1f2430;border-radius:16px;padding:18px}
+    .input{width:100%;padding:12px;border-radius:10px;border:1px solid #1f2430;background:#0b1220;color:var(--text)}
+    .upsell{border:1px solid #1f2430;border-radius:14px;padding:14px;background:#0b1220}
+    .warn{color:var(--warn);font-weight:700}
+    footer{border-top:1px solid #1f2430;margin-top:28px}
+    footer .top{color:var(--muted);font-size:12px}
+    @media(max-width:900px){.grid{grid-template-columns:1fr}}
+.feedback-bubble{position:fixed;bottom:18px;right:18px;background:#0b1220;border:1px solid #1f2430;color:#e5e7eb;padding:10px 14px;border-radius:999px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);font-weight:700}
+.feedback-bubble:hover{opacity:.9}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top">
+      <div class="brand">Recarga Jogo Flex</div>
+      <div class="pill">PIX • Entrega rápida</div>
+    </div>
+  </header>
 
+  <main>
+    <!-- Nuvem de feedback (sem envio de dados) -->
+    <div class="feedback-bubble" onclick="openFeedback()">💬 O que achou?</div>
+    <div id="feedbackModal" class="modal">
+      <div class="box">
+        <h3>Sua opinião importa</h3>
+        <p class="note">O que achou da estrutura do site? Aceitamos dicas para melhorias.</p>
+        <textarea id="feedbackText" class="input" rows="4" placeholder="Escreva sua opinião..."></textarea>
+        <div class="stack" style="margin-top:10px">
+          <button class="btn btn-primary" onclick="sendFeedback()">Enviar</button>
+          <button class="btn btn-ghost" onclick="closeFeedback()">Cancelar</button>
+        </div>
+        <p class="note" id="feedbackThanks" style="display:none;margin-top:10px">Obrigado! Sua mensagem foi recebida.</p>
+      </div>
+    </div>
+    <section class="grid">
+      <div class="card hero">
+        <h1>Recarregue seus jogos em poucos cliques</h1>
+        <p>Processo simples, pagamento via PIX e entrega após informar o ID.</p>
+      </div>
+      <div class="card aside">
+        <div class="list">
+          <div><span>Pagamento</span><strong>PIX</strong></div>
+          <div><span>Confirmação</span><strong>Automática</strong></div>
+          <div><span>Suporte</span><strong>Online</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card product" style="margin-top:16px">
+      <div class="row">
+        <div class="game">
+          <div class="badge">Free Fire</div>
+          <strong>5.000 Diamantes</strong>
+        </div>
+        <div class="price">R$ 39,00</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stack">
+        <button class="btn btn-primary" onclick="document.getElementById('m').style.display='flex'">Comprar via PIX</button>
+        <span class="note">Preço final. Nenhuma taxa adicional será cobrada.</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal pós-pagamento -->
+  <div id="m" class="modal">
+    <div class="box">
+      <h3>Finalizar entrega</h3>
+      <p class="note">Pagamento via PIX • Informe o ID para concluir.</p>
+      <div class="pix">
+        <strong>Chave PIX</strong>
+        <code id="pixKey">46039c21-d389-4f49-b441-169c30a81de3</code>
+        <button class="btn btn-ghost" onclick="copyPix()">Copiar chave PIX</button>
+        <span class="note">Valor fixo: R$ 39,00</span>
+      </div>
+      <div class="divider"></div>
+      <input class="input" placeholder="Digite seu ID do Free Fire" />
+      <div class="stack" style="margin-top:10px">
+        <button class="btn btn-ghost">Confirmar ID</button>
+      </div>
+      <div class="divider"></div>
+      <div class="upsell">
+        <div class="row"><strong>Mega Desconto</strong><span class="warn">Opcional</span></div>
+        <div class="row"><span>+1.500 Diamantes</span><strong>R$ 20,00</strong></div>
+        <button class="btn btn-primary" style="margin-top:8px">Adicionar ao pedido</button>
+        <button class="btn btn-ghost" style="margin-top:6px" onclick="document.getElementById('m').style.display='none'">Continuar sem o desconto</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="top">© 2026 • Plataforma independente de recargas</div>
+  </footer>
+  <script>
+    function copyPix(){
+      const key = document.getElementById('pixKey').innerText;
+      navigator.clipboard.writeText(key).then(()=>{
+        alert('Chave PIX copiada. Cole no app do seu banco para pagar.');
+      });
+    }
+    function openFeedback(){document.getElementById('feedbackModal').style.display='flex'}
+    function closeFeedback(){document.getElementById('feedbackModal').style.display='none'}
+    function sendFeedback(){
+      const t=document.getElementById('feedbackText');
+      t.value='';
+      document.getElementById('feedbackThanks').style.display='block';
+      setTimeout(()=>{document.getElementById('feedbackThanks').style.display='none';closeFeedback();},1200);
+    });
+    }
+  </script>
+</body>
+</html>
